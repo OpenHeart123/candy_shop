@@ -1,0 +1,68 @@
+登陆功能实现思路
+
+ 1.短信和密码切换登陆实现
+    思路：1.在两个a标签上添加class,约定短信为true，密码登陆为false  :class={on:loginWay}
+          2.同时添加@click点击事件loginWay=false,在两个div中将绑定的class也添加上去
+ 2.发送验证码功能的实现
+    1.实现输入正确的手机号码，'获取验证码颜色变成黑色'
+     思路：1.在input输入框绑定v-model,值看后台文档
+           2.给按钮绑定class属性 例如：:class={right_phone:rightPhone}
+           3.在computed计算属性中  rightPhone(){return /^1\d{10}$/.text(phone)}
+           4.在样式中添加样式  &.right_phone{ color: black}
+     2.点击获取验证码实现倒计时
+        1.添加点击发送事件，@click="sendMsg"
+        2.添加数据computedTime属性，开始为0
+        2.实现sendMsg方法
+ 3.密码显示隐藏实现方法
+    思路：1.两个input输入框，定义属性showPwd默认为false
+          2.密码输入数据双向绑定并给小按钮添加click事件
+          3.给小按钮添加向右滑动class并添加样式  transform translate(30px)
+ 4.前台表单验证实现方法
+    思路: 1.引入外部min-ui组件
+          2.表单提交添加 @submit.prevent="login",并编写login方法
+          3.判断是那种登陆方式，并将数据与页面双向绑定起来
+  5.注册登陆交互功能实现
+     a.动态一次性图形验证码
+        思路：将http://localhost:4000/captcha赋值给img的src并添加点击事件，加事件戳  event.target.src=''
+
+     b.动态一次性短信验证码
+        思路：1.找一家云通讯代理平台，获取注册信息，写后端sms_utils，然后写路由服务
+              2.发送ajax异步请求，获取result，判断result.code的值做出相应响应
+     c.短信登陆
+     d.密码登陆
+          思路：调用相关方法，根据返回值进行相关操作
+
+     e.获取用户信息,实现自动登录
+          思路：v-if指令判断userinfo中是否存在phone属性，不存在就显示name属性，存在就显示phone属性
+          登录更新跳转路由:
+     f.退出登录
+       思路：用mint-ui组件
+              1.npm i --save mint-ui  实现按需打包 npm i --save-dev babel-plugin-component
+              2.导入mint-ui
+                 logout
+                  MessageBox.confirm('确定执行此操作?').then(action => {},action=>{})
+              3.写一套vuex logout代码
+
+   6.搭建商家整理界面
+
+      1.三个子路由，一个父路由 shop /shop/goods  ratings  info 和一个非路由组件  shopheader
+
+      mockjs数据：1.npm install mockjs并导入mint-ui
+                  2.定义并注册注册全局组件
+                  3.写一套vuex
+    7.商家列表交互
+       思路：类名：current标志当前分类
+             设计一个计算属性：currentIndex
+             根据哪些数据计算？
+                     scrollY:右侧滑动的Y轴坐标（滑动过程中实时在变）
+                     tops:所有右侧分类li的top组成的数组（列表第一次显示不再变化）
+            1.在右侧滑动过程中，实时收集scrollY
+            2.在列表第一次显示后，手机tops
+            3.实现currentIndex的计算逻辑
+   实现2列表滑动
+        better-scroll
+
+
+
+
+

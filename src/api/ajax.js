@@ -7,7 +7,6 @@ export default function ajax(url, data = {}, type = "GET") {
 
   return new Promise(function (resolve, reject) {
     let promise;
-
     if (type === 'GET') {
       let dataStr = '';
       Object.keys(data).forEach(key => {
@@ -18,10 +17,10 @@ export default function ajax(url, data = {}, type = "GET") {
         url = url + '?' + dataStr;
       }
       //发送GET请求
-      promise.get(url);
+     promise= axios.get(url);
 
     } else if (type === 'POST') {
-      promise.post(url, data);
+      promise=axios.post(url, data);
     }
 
     promise.then(function (response) {
